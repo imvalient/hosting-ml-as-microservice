@@ -9,12 +9,13 @@
     var score = function() {
       var review = document.getElementById("review").value;
       var xhttp = new XMLHttpRequest();
+      document.getElementById("output").innerHTML += "<div>Sent: " + review + "</div>";
       xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
-             document.getElementById("output").innerHTML += "<div>"+JSON.parse(xhttp.responseText).args.text+"</div>";
+             document.getElementById("output").innerHTML += "<div>Result: " + xhttp.responseText +"</div>";
           }
       };
-      xhttp.open("GET", "https://httpbin.org/get?text="+review, true);
+      xhttp.open("GET", "http://localhost:5000/predict?input="+review, true);
       xhttp.send();
     }
     </script>

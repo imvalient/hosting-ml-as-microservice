@@ -4,6 +4,7 @@ import sys
 
 from flask import Flask
 from flask import request
+from flask_cors import CORS, cross_origin
 from nltk import download
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -34,8 +35,11 @@ def get_sentiment(review):
     return model.classify(words)
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/predict', methods = ['GET', 'POST'])
+@cross_origin()
 def predict():
     if request.method == 'GET':
         input = request.args.get('input')
